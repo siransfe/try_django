@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.template.loader import get_template
 
 def home_page(request):
-    my_title = "Hello there..."
+    my_title = "Hello there"
     context = {"title": "my_title"}
     if request.user.is_authenticated:
         context = {"title": my_title, "my_list" : [1, 2, 3, 4, 5]}
