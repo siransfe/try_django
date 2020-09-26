@@ -11,6 +11,6 @@ urlpatterns = [
     path('blog-new/',  blog_post_create_view),
 
     path('about/', about_page),
-    path('contact/', home_page),
+    path('contact/', contact_page),
     path('admin/', admin.site.urls),
 ]

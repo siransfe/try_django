@@ -13,7 +13,8 @@ def about_page(request):
     return HttpResponse("<h1>helloWorld</h1>")
 
 def contact_page(request):
-    return render(request, "hello_world.html", {"title": "Contact us" })
+    print(request.POST)
+    return render(request, "form.html", {"title": "Contact us" })
 
 
 def example_page(request):
