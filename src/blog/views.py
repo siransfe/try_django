@@ -30,13 +30,12 @@ def blog_post_list_view (request):
     return render(request, template_name, context)
 
 def blog_post_create_view(request):
-    #create objects
-    #  use a form
     form = BlogPostForm(request.POST or None)
     if form.is_valid():
-        print(form.cleanded_data) #dic datas
-        title = form.cleand_data['title']
-        obj = BlogPost.objects.create(**form.cleaned_data)        
+        print(form.cleaned_data) #dic datas
+        title = form.cleaned_data['title']
+        obj = BlogPost.objects.create(**form.cleaned_data)
+        obj = BlogPostForm()
     template_name = 'form.html'
     context = {'form': form}
     return render(request, template_name, context)
