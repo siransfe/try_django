@@ -2,6 +2,11 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.template.loader import get_template
 
+
+from .forms import ContactForm
+
+
+
 def home_page(request):
     my_title = "Hello there"
     context = {"title": "my_title"}
@@ -13,11 +18,20 @@ def about_page(request):
     return HttpResponse("<h1>helloWorld</h1>")
 
 def contact_page(request):
-    print(request.POST)
-    return render(request, "form.html", {"title": "Contact us" })
+    form = ContactForm(request.POST or None)
+    print(form.is_valid)
+    if form.is_valid():
+        print(form.cleaned_data)
+        form = ContactForm() # 새로 초기화 해주는구만
+    context = {
+        "title": "Contact us",
+         "form": form,
+    }
+    return render(request, "form.html", {"title": "Contact us", "form": form })
 
 
 def example_page(request):
+    my_title = "Hello there"
     context         = {"title": my_title}
     template_name   = "hello_world.html"
     template_obj    = get_template(template_name)

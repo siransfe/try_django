@@ -5,9 +5,7 @@
     <h1>{{title}}</h1>
 {% endif %}
 <form method = 'POST' action = '/contact/'> {% csrf_token %}
-        <input type = "text" name="full_name">
-        <input tyep = "email" name="email">
-        <textarea name="content"></textarea>
-        <button type = "submit">send</button>
+    {{form.as_p}}
+    <button type = "submit">send</button>
 </form>
 {% endblock %}
