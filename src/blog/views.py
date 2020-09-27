@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 
@@ -29,12 +31,19 @@ def blog_post_list_view (request):
     context = {'object_list': qs}
     return render(request, template_name, context)
 
+@staff_member_required
 def blog_post_create_view(request):
     #form = BlogPostForm(request.POST or None)
+    
+    if not request.user.is_authenticated:
+        return render(request, "not-a-user.html", {})
     form = BlogPostModelForm(request.POST or None)
     if form.is_valid():
         #print(form.cleaned_data) #dic datas
-        form.save()
+        obj = form.save(commit=False)
+        obj.user = request.user
+        obj.save()
+        #form.save()
         form = BlogPostModelForm()
         #title = form.cleaned_data['title']
         #obj = BlogPost.objects.create(**form.cleaned_data)
