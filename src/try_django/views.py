@@ -27,7 +27,7 @@ def contact_page(request):
         "title": "Contact us",
          "form": form,
     }
-    return render(request, "form.html", {"title": "Contact us", "form": form })
+    return render(request, "form.html", context)
 
 
 def example_page(request):
