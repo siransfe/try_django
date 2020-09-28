@@ -18,7 +18,7 @@ class BlogPostModelForm(forms.ModelForm):
     def clean_title(self, *args, **kwagrs):
         instance = self.instance
         title = self.cleaned_data.get('title')
-        qs =BlogPost.objects.filter(title__iexact = title)##iexact를 쓰면 대문자 소문자 전부 같은걸로 취급.
+        qs =BlogPost.objects.filter(title__iexact = title)##iexact를 쓰면 대문자 소문자 구분 학
         if instance is not None:
             qs = qs.exclude(pk = instance.pk)
         if qs.exists():

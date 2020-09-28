@@ -10,7 +10,7 @@ class BlogPost(models.Model): # blogpost_set -> queryset
     slug    = models.SlugField(unique =True) #hello world -> hello-world
     content = models.TextField(null = True, blank=True)
     
-# 3 values cureently ????? slug?
+# 3 values curently ????? slug?
     def get_absolute_url(self):
         return f"/blog/{self.slug}"
     
