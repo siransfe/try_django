@@ -26,6 +26,9 @@ def blog_post_list_view (request):
     # list out objects
     # could be search
     qs = BlogPost.objects.published() # queryset -> list of python object
+    if request.user.is_authenticated:
+        my_qs = BlogPost.objects.filter(user=request.user)
+        qs = (qs | my_qs).distinct()
     #.published() > custom querySet.
     #qs = BlogPost.objects.filter(title__icontains = 'hello')
     template_name = 'blog/list.html'

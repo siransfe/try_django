@@ -12,7 +12,7 @@ class BlogPostForm(forms.Form):
 class BlogPostModelForm(forms.ModelForm):
     class Meta:
         model = BlogPost
-        fields = ['title', 'slug', 'content'] #what you want to input
+        fields = ['title', 'slug', 'content','publish_date'] #what you want to input
         
     
     def clean_title(self, *args, **kwagrs):
