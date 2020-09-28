@@ -3,7 +3,8 @@
 
 {% block content %}
     {% for object in object_list%}
-    <h1> {{ object.title }}</h1> 
+    <li><a href='{{ object.get_absolute_url }}'><h1> {{ object.title }}</h1> </a></li>
+    
     <p>{{ object.content }}</p>
     <p>{{ object.id }}</p>
     <p>{{ object.slug }}</p>
