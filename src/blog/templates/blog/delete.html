@@ -2,9 +2,13 @@
 
 
 {% block content %}
-    {% for object in object_list%}
-    <h1> {{ object.title }}</h1> 
-    <p>{{ object.content }}</p>
-    {% endfor %}
+    
+    <h1> Are you suer you want to delete the following? - </h1> 
+    <p>title: {{ object.title }}</p>
 
+<form method = "POST"> {% csrf_token %}
+
+    <button class = 'btn btn-danger'> Yes, delete</button>
+
+</form>
 {% endblock %}  
