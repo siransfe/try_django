@@ -11,7 +11,7 @@ from .models import BlogPost
 
 def blog_post_detail_page (request, slug):
     print("DJANGO SAYS: ", request.method, request.path, request.user)
-    queryset = BlogPost.objects.filter(slug = slug)
+    #queryset = BlogPost.objects.filter(slug = slug)
     #if queryset.count() == 0:
     #    raise Http404
     #else:
@@ -28,7 +28,7 @@ def blog_post_list_view (request):
     qs = BlogPost.objects.published() # queryset -> list of python object
     if request.user.is_authenticated:
         my_qs = BlogPost.objects.filter(user=request.user)
-        qs = (qs | my_qs).distinct()
+        qs = (qs | my_qs).distinct()  # 중복 제거
     #.published() > custom querySet.
     #qs = BlogPost.objects.filter(title__icontains = 'hello')
     template_name = 'blog/list.html'
@@ -67,7 +67,6 @@ def blog_post_update_view (request, slug):
     obj = get_object_or_404(BlogPost, slug=slug)
     form = BlogPostModelForm(request.POST or None, instance = obj)
     if form.is_valid():
-        print("changeD???")
         form.save()
     template_name = "form.html"
     context = {'form':form, "title": f"Update {obj.title}"}

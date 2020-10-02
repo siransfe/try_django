@@ -21,10 +21,10 @@ def contact_page(request):
     form = ContactForm(request.POST or None)
     print(form.is_valid)
     if form.is_valid():
-        print(form.cleaned_data)
+        # print(form.cleaned_data)
         form = ContactForm() # 새로 초기화 해주는구만
     context = {
-        "title": "Contact us",
+         "title": "Contact us",
          "form": form,
     }
     return render(request, "form.html", context)

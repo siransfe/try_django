@@ -7,9 +7,9 @@ class ContactForm(forms.Form):
     
     
     def clean_email(self, *args, **kwargs):
-        print(self.cleaned_data)
+        # print(self.cleaned_data)
         email = self.cleaned_data.get('email')
         if email.endswith(".edu"):
-            raise forms. ValidationError("This is not valid email format. please don't user that")
+            raise forms. ValidationError("This is not valid email format. please don't use that")
         return email
     
