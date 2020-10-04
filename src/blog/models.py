@@ -25,10 +25,12 @@ class BlogPost(models.Model): # blogpost_set -> queryset
     user    = models.ForeignKey(User, default = 1, null = True, on_delete = models.SET_NULL)
     # image = models.FileField(upload_to = 'image/', blank=True, null=True)
     # install pillow > python image field library
+    # upload to > /MEDIAROOT/image/에 저장
     image = models.ImageField(upload_to = 'image/', blank=True, null=True)
     title   = models.CharField(max_length = 100)
     slug    = models.SlugField(unique =True) #hello world -> hello-world
     content = models.TextField(null = True, blank=True)
+    # auto_now_add = 생성일자  auto_now = 수정일자 
     publish_date= models.DateTimeField(auto_now=False, auto_now_add=False, null =True, blank=True)
     timestamp   = models.DateTimeField(auto_now_add=True)
     update      = models.DateTimeField(auto_now=True)
@@ -46,3 +48,4 @@ class BlogPost(models.Model): # blogpost_set -> queryset
 
     def get_delete_url(self):
         return f"/blog/{self.slug}/delete"
+    

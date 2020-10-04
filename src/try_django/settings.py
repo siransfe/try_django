@@ -130,4 +130,4 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_ROOT = os.path.join(LOCAL_STATIC_CDN_PATH, 'media')
-MEDIA_URL = '/media/'
+MEDIA_URL = '/media/' #django-storages
