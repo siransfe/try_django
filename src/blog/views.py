@@ -2,25 +2,54 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
-# Create your views here.
+from django.views import View
+
 from .forms import BlogPostForm, BlogPostModelForm
 from .models import BlogPost
 
-#get -> 1 object
-#filter -> [] objects
 
+class blog_post_view(View):
+    
+    def get(self, request, slug):
+        obj = get_object_or_404(BlogPost, slug=slug)
+        template_name = "blog_post_detail_page.html"
+        context = {"object": obj}
+        return render(request, template_name, context)
+    def get(self, request):
+        qs = BlogPost.objects.published() # queryset -> list of python object
+        if request.user.is_authenticated:
+            my_qs = BlogPost.objects.filter(user=request.user)
+            qs = (qs | my_qs).distinct()  # 중복 제거
+
+        template_name = 'blog/list.html'
+        context = {'object_list': qs}
+        return render(request, template_name, context)
+    def post(self, request):
+        qs = BlogPost.objects.published() # queryset -> list of python object
+        if request.user.is_authenticated:
+            my_qs = BlogPost.objects.filter(user=request.user)
+            qs = (qs | my_qs).distinct()  # 중복 제거
+        #.published() > custom querySet.
+        #qs = BlogPost.objects.filter(title__icontains = 'hello')
+        template_name = 'blog/list.html'
+        context = {'object_list': qs}
+        return render(request, template_name, context)
+    
+class blog_post_detail_view(View):
+    
+    def get(self, request, slug):
+        obj = get_object_or_404(BlogPost, slug=slug)
+        template_name = "blog_post_detail_page.html"
+        context = {"object": obj}
+        return render(request, template_name, context)
+    
 def blog_post_detail_page (request, slug):
     print("DJANGO SAYS: ", request.method, request.path, request.user)
-    #queryset = BlogPost.objects.filter(slug = slug)
-    #if queryset.count() == 0:
-    #    raise Http404
-    #else:
-    #    obj = BlogPost.objects.get(slug=slug)
-    #여기다가 timezone을 통한 설정을 하게 되면, 항상 이 코드를 실행하게 된다는 문제가 있다. 
     obj = get_object_or_404(BlogPost, slug=slug)
     template_name = "blog_post_detail_page.html"
     context = {"object": obj}
     return render(request, template_name, context)
+    
 
 def blog_post_list_view (request):
     # list out objects
